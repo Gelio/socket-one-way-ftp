@@ -24,7 +24,7 @@ struct serverData {
 volatile sig_atomic_t shouldQuit;
 void sigIntHandler(int signal);
 void usage(char *fileName);
-void parseArguments(int argc, char **argv, int *groupSize, int16_t *port);
+void parseArguments(int argc, char **argv, int16_t *port);
 void setSignalHandling(sigset_t *previousMask, sigset_t *previousMaskWithSigPipe);
 void performCleanup(struct serverData *serverData);
 

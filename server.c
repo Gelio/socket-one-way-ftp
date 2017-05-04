@@ -64,9 +64,8 @@ void serverLoop(struct serverData *serverData)
 
 int main(int argc, char **argv)
 {
-    int groupSize;
     int16_t port;
-    parseArguments(argc, argv, &groupSize, &port);
+    parseArguments(argc, argv, &port);
 
     printf("[SERVER] Initialization\n");
     workerThreadNode_t *workerThreadsList = NULL;

@@ -9,9 +9,8 @@ volatile sig_atomic_t shouldQuit = 0;
 
 void usage(char *fileName)
 {
-    fprintf(stderr, "Usage: %s port groupSize\n", fileName);
+    fprintf(stderr, "Usage: %s port\n", fileName);
     fprintf(stderr, "port > %d\n", PORT_MIN);
-    fprintf(stderr, "groupSize - number of clients to form a group (between %d and %d)\n", CLIENTS_MIN, CLIENTS_MAX);
     exit(EXIT_FAILURE);
 }
 
@@ -20,17 +19,13 @@ void sigIntHandler(int signal)
     shouldQuit = 1;
 }
 
-void parseArguments(int argc, char **argv, int *groupSize, int16_t *port)
+void parseArguments(int argc, char **argv, int16_t *port)
 {
-    if (argc != 3)
+    if (argc != 2)
         usage(argv[0]);
 
     *port = atoi(argv[1]);
     if (*port <= PORT_MIN)
-        usage(argv[0]);
-
-    *groupSize = atoi(argv[2]);
-    if (*groupSize < CLIENTS_MIN || *groupSize > CLIENTS_MAX)
         usage(argv[0]);
 }
 
