@@ -51,7 +51,7 @@ sigset_t prepareBlockMask()
     return blockMask;
 }
 
-size_t bulkRead(int fd, char *buf, size_t length)
+ssize_t bulkRead(int fd, char *buf, size_t length)
 {
     size_t totalBytes = 0;
     while (length > 0)
@@ -70,7 +70,7 @@ size_t bulkRead(int fd, char *buf, size_t length)
     return totalBytes;
 }
 
-size_t bulkWrite(int fd, char *buf, size_t length)
+ssize_t bulkWrite(int fd, char *buf, size_t length)
 {
     size_t totalBytes = 0;
     while (length > 0)

@@ -18,7 +18,7 @@ void bindSocket(int serverSocket, int16_t port);
 void bindSocketAndListen(int serverSocket, int16_t port, int backlog);
 sigset_t prepareBlockMask();
 
-size_t bulkRead(int fd, char *buf, size_t length);
-size_t bulkWrite(int fd, char *buf, size_t length);
+ssize_t bulkRead(int fd, char *buf, size_t length);
+ssize_t bulkWrite(int fd, char *buf, size_t length);
 
 #endif
