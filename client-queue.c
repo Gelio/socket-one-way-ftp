@@ -3,23 +3,25 @@
 #include "common.h"
 #include "client-queue.h"
 
-void addClientToQueue(clientNode_t **head, int clientSocket)
+void addClientToQueue(clientNode_t **head, int clientSocket, struct sockaddr_in *clientAddr, socklen_t *clientAddrLen)
 {
     clientNode_t *newNode = malloc(sizeof(clientNode_t));
     if (newNode == NULL)
         ERR("malloc");
 
     newNode->clientSocket = clientSocket;
+    newNode->clientAddr = *clientAddr;
+    newNode->clientAddrLen = *clientAddrLen;
     newNode->next = *head;
     *head = newNode;
 }
 
-void safeAddClientToQueue(clientNode_t **head, int clientSocket, pthread_mutex_t *mutex)
+void safeAddClientToQueue(clientNode_t **head, int clientSocket, struct sockaddr_in *clientAddr, socklen_t *clientAddrLen, pthread_mutex_t *mutex)
 {
     if (pthread_mutex_lock(mutex) != 0)
         ERR("pthread_mutex_lock");
 
-    addClientToQueue(head, clientSocket);
+    addClientToQueue(head, clientSocket, clientAddr, clientAddrLen);
 
     if (pthread_mutex_unlock(mutex) != 0)
         ERR("pthread_mutex_unlock");

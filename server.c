@@ -16,14 +16,16 @@
 
 void acceptNewClient(struct serverData *serverData, int threadId)
 {
-    int clientSocket = TEMP_FAILURE_RETRY(accept(serverData->serverSocket, NULL, NULL));
+    struct sockaddr_in clientAddr;
+    socklen_t clientAddrLen;
+    int clientSocket = TEMP_FAILURE_RETRY(accept(serverData->serverSocket, (struct sockaddr*)&clientAddr, &clientAddrLen));
     if (clientSocket < 0)
         ERR("accept");
 
     if (pthread_mutex_lock(serverData->clientQueueMutex) != 0)
         ERR("pthread_mutex_lock");
 
-    addClientToQueue(serverData->clientQueue, clientSocket);
+    addClientToQueue(serverData->clientQueue, clientSocket, &clientAddr, &clientAddrLen);
 
     pthread_t tid;
     workerThreadArgs_t *workerArgs = malloc(sizeof(workerThreadArgs_t));
