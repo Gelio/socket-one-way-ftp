@@ -17,7 +17,7 @@
 void acceptNewClient(struct serverData *serverData, int threadId)
 {
     struct sockaddr_in clientAddr;
-    socklen_t clientAddrLen;
+    socklen_t clientAddrLen = sizeof(struct sockaddr_in);
     int clientSocket = TEMP_FAILURE_RETRY(accept(serverData->serverSocket, (struct sockaddr*)&clientAddr, &clientAddrLen));
     if (clientSocket < 0)
         ERR("accept");
