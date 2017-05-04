@@ -1,5 +1,6 @@
 #include "common.h"
 #include "worker-thread.h"
+#include "server-helpers.h"
 
 #include <arpa/inet.h>
 #include <sys/stat.h>
@@ -17,7 +18,8 @@ void setWorkerThreadSignalHandling(sigset_t *previousMask)
 
 void workerThreadCleanup(workerThreadArgs_t *workerArgs, sigset_t *previousMask)
 {
-    safeRemoveWorkerThreadFromList(workerArgs->workerThreadsList, pthread_self(), workerArgs->workerThreadsListMutex);
+    if (!shouldQuit)
+        safeRemoveWorkerThreadFromList(workerArgs->workerThreadsList, pthread_self(), workerArgs->workerThreadsListMutex);
 
 
     free(workerArgs);

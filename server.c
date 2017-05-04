@@ -39,6 +39,8 @@ void acceptNewClient(struct serverData *serverData, int threadId)
     if (pthread_create(&tid, NULL, workerThread, (void*)workerArgs) != 0)
         ERR("pthread_create");
 
+    addWorkerThreadToList(serverData->workerThreadsList, tid);
+
     if (pthread_mutex_unlock(serverData->clientQueueMutex) != 0)
         ERR("pthread_mutex_unlock");
 }
