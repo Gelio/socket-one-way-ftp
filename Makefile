@@ -2,9 +2,8 @@ CC=gcc
 CFLAGS=-Wall -std=gnu99
 LDLIBS= -lpthread
 
-# SOURCES=$(wildcard *.c)
-# HEADERS=$(wildcard *.h)
-SOURCES=server.c
+SOURCES=$(wildcard *.c)
+HEADERS=$(wildcard *.h)
 
 .PHONY: clean
 
